@@ -55,7 +55,7 @@ resource "oci_identity_group" "security" {
 }
 
 resource "oci_identity_group" "security_service" {
-  count          = var.create_security_persona ? 1 : 0
+  count          =  0
   compartment_id = var.tenancy_ocid
   description    = "Landing Zone group for users of the Security team to access security resources in compartment ${oci_identity_compartment.security[0].name}."
   name           = "${local.security_name}-Service"
@@ -85,11 +85,6 @@ resource "oci_identity_policy" "security" {
         "manage security-zone", "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
         "read work-requests", "manage bastion-family",
         "manage certificate-authority-family"
-      ]),
-      # security users in security compartment
-      formatlist("allow group ${oci_identity_group.security_service[0].name} to %s in compartment ${oci_identity_compartment.security[0].name}", [
-        "use bastion", "manage bastion-session", "use vaults", "use keys", 
-        "manage secrets", "manage secret-versions", "read secret-bundles", "manage instance-images",
-      ]),
+      ])
     )
 }

@@ -61,14 +61,14 @@ resource "oci_identity_policy" "iam" {
 # uses root as compartment
 
 resource "oci_identity_group" "cred" {
-  count          = var.create_identity_persona ? 1 : 0
+  count          =  0
   compartment_id = var.tenancy_ocid
   description    = "Landing Zone group for managing iam users credentials in the tenancy."
   name           = "cred"
 }
 
 resource "oci_identity_policy" "cred" {
-  count          = var.create_identity_persona ? 1 : 0
+  count          = 0
   compartment_id = var.tenancy_ocid
   description    = "${oci_identity_group.cred[0].name}'s policy"
   name           = "cred"
