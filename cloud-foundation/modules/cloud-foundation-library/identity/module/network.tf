@@ -66,7 +66,7 @@ resource "oci_identity_group" "network_service" {
 resource "oci_identity_policy" "network" {
   count          = var.create_network_persona ? 1 : 0
   compartment_id = oci_identity_compartment.network[0].id
-  description    = "Landing Zone policy for ${oci_identity_group.network[0].name}'s group and ${oci_identity_group.network_service[0].name} to manage Network related services in Landing Zone compartment ${oci_identity_compartment.network[0].name}"
+  description    = "Landing Zone policy for ${oci_identity_group.network[0].name}'s group to manage Network related services in Landing Zone compartment ${oci_identity_compartment.network[0].name}"
   name           = local.network_name
   statements     = concat(
       # network team in network compartment

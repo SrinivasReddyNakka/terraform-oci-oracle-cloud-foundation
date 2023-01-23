@@ -51,11 +51,14 @@ resource "oci_identity_policy" "iam" {
       "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
       "manage policies", "manage compartments",
     ]),
-    ["allow group ${oci_identity_group.iam[0].name} to manage groups in tenancy where all {target.group.name != 'Administrators', target.group.name != '${oci_identity_group.cred[0].name}'}",
+    [ 
+	  "allow group ${oci_identity_group.iam[0].name} to manage groups in tenancy where all {target.group.name != 'Administrators'}",
       "allow group ${oci_identity_group.iam[0].name} to manage identity-providers in tenancy where any {request.operation = 'AddIdpGroupMapping', request.operation = 'DeleteIdpGroupMapping'}",
     ]
   )
 }
+
+## "allow group ${oci_identity_group.iam[0].name} to manage groups in tenancy where all {target.group.name != 'Administrators', target.group.name != '${oci_identity_group.cred[0].name}'}",
 
 # cred
 # uses root as compartment
