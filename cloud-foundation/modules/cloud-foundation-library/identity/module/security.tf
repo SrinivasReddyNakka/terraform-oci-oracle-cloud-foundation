@@ -83,7 +83,7 @@ resource "oci_identity_policy" "security" {
       formatlist("allow group ${oci_identity_group.security[0].name} to %s in compartment ${oci_identity_compartment.security[0].name}", [
         "read all-resources", "manage vaults", "manage keys", "manage secret-family",
         "manage security-zone", "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
-        read work-requests", "manage bastion-family",
+        "read work-requests", "manage bastion-family",
         "manage certificate-authority-family"
       ]),
       # security users in security compartment
