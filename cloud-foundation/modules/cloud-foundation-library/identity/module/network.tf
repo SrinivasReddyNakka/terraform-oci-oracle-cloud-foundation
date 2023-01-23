@@ -57,7 +57,7 @@ resource "oci_identity_group" "network" {
 }
 
 resource "oci_identity_group" "network_service" {
-  count          =  0
+  count          = var.create_network_persona ? 1 : 0
   compartment_id = var.tenancy_ocid
   description    = "Landing Zone group for users of the Networking team to access networks in compartment ${oci_identity_compartment.network[0].name}."
   name           = "${local.network_name}-Service"
@@ -78,6 +78,12 @@ resource "oci_identity_policy" "network" {
         "manage mount-targets",
         # standard helper resources
         "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers"
-      ])
+      ]),
+      # network users in network compartment
+      formatlist("allow group ${oci_identity_group.network_service[0].name} to %s in compartment ${oci_identity_compartment.network[0].name}", [
+        "use virtual-network-family", "use bastion", "manage bastion-session",
+        # File Storage Service
+        "manage export-sets", "use mount-targets", "use file-systems"
+      ]),
     )
 }
