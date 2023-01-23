@@ -75,11 +75,9 @@ resource "oci_identity_policy" "network" {
         # network related resources
         "manage virtual-network-family", "manage dns", "manage load-balancers", "manage bastion-family",
         # compute/file storage related resources
-        "manage instance-family ", "manage mount-targets",
+        "manage mount-targets",
         # standard helper resources
-        "manage alarms", "manage metrics", "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
-        "read audit-events", "read work-requests",   "manage cloudevents-rules",
-        "manage alarms", "read instance-agent-plugins", 
+        "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers"
       ]),
       # network users in network compartment
       formatlist("allow group ${oci_identity_group.network_service[0].name} to %s in compartment ${oci_identity_compartment.network[0].name}", [

@@ -69,9 +69,7 @@ resource "oci_identity_policy" "tenancy_security" {
   statements     = concat(
       #security team in tenancy
       formatlist("allow group ${oci_identity_group.security[0].name} to %s in tenancy", [
-        "manage cloudevents-rules", "manage cloud-guard-family", "read tenancies", "read objectstorage-namespaces",
-        "use cloud-shell", "read usage-budgets", "read usage-reports", "manage tag-namespaces", "manage tag-defaults",
-        "manage repos", "read audit-events", "read app-catalog-listing", "read instance-images", "inspect buckets"
+        "read tenancies"
       ]),
   )
 }
@@ -83,16 +81,14 @@ resource "oci_identity_policy" "security" {
   statements     = concat(
       # security team in security compartment
       formatlist("allow group ${oci_identity_group.security[0].name} to %s in compartment ${oci_identity_compartment.security[0].name}", [
-        "read all-resources", "manage instance-family", "manage vaults", "manage keys", "manage secret-family",
-        "manage logging-family", "manage serviceconnectors", "manage streams", "manage ons-family", "manage functions-family",
-        "manage waas-family", "manage security-zone", "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
-        "manage vss-family", "read work-requests", "manage bastion-family", "read instance-agent-plugins", "manage cloudevents-rules",
-        "manage alarms", "manage metrics",
+        "read all-resources", "manage vaults", "manage keys", "manage secret-family",
+        "manage security-zone", "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
+        read work-requests", "manage bastion-family",
         "manage certificate-authority-family"
       ]),
       # security users in security compartment
       formatlist("allow group ${oci_identity_group.security_service[0].name} to %s in compartment ${oci_identity_compartment.security[0].name}", [
-        "read vss-family", "use bastion", "manage bastion-session", "use vaults", "use keys", 
+        "use bastion", "manage bastion-session", "use vaults", "use keys", 
         "manage secrets", "manage secret-versions", "read secret-bundles", "manage instance-images",
       ]),
     )

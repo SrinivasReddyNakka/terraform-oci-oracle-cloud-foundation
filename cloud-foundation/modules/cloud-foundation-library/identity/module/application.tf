@@ -69,20 +69,18 @@ locals {
         formatlist("allow group %%s to %s in compartment %%s",[
         # manage
         # compute types
-        "manage instance-family","manage functions-family", "manage cluster-family",
+        "manage instance-family",
         # storage types
-        "manage volume-family", "manage object-family", "manage repos", 
+        "manage volume-family", "manage object-family", 
         #appdev services
-        "manage api-gateway-family", "manage bastion-session", "manage streams", 
-        # monitoring
-        "manage ons-family", "manage alarms", "manage metrics", "manage logs", "manage cloudevents-rules",
+        "manage bastion-session",
         # Resource manager
         "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
         #File Storage Service
         "manage file-systems", "manage export-sets",
 
         # read 
-        "read all-resources", "read audit-events", "read work-requests",  "read instance-agent-plugins"
+        "read all-resources"
     ] ),
 
     var.application_type == "ebs" #adds additional database policy grants needed for ebs admins

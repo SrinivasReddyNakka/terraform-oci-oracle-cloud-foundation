@@ -46,13 +46,9 @@ resource "oci_identity_policy" "iam" {
     formatlist("allow group ${oci_identity_group.iam[0].name} to %s in tenancy", [
       # inspect
       "inspect users", "inspect groups", "inspect identity-providers",
-      # read
-      "read audit-events",
-      # use 
-      "use cloud-shell",
       # manage
-      "manage dynamic-groups", "manage authentication-policies", "manage network-sources", "manage quota",
-      "manage tag-defaults", "manage tag-namespaces", "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
+      "manage dynamic-groups", "manage authentication-policies", "manage quota",
+      "manage orm-stacks", "manage orm-jobs", "manage orm-config-source-providers",
       "manage policies", "manage compartments",
     ]),
     ["allow group ${oci_identity_group.iam[0].name} to manage groups in tenancy where all {target.group.name != 'Administrators', target.group.name != '${oci_identity_group.cred[0].name}'}",
