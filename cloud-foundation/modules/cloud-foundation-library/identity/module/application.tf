@@ -152,18 +152,18 @@ resource "oci_identity_compartment" "environments" {
     enable_delete = var.allow_compartment_deletion
 }
 
-resource "oci_identity_policy" "environments" {
-    for_each =  oci_identity_compartment.environments
-
-    compartment_id = each.value.id
-    description = "${each.value.name}'s compartment policy"
-    name = each.key
-    statements = [
-        for s in local.applied_statement:
-            format(s,oci_identity_group.environments[each.key].name,each.value.name)
-    ]
-  
-}
+#resource "oci_identity_policy" "environments" {
+#    for_each =  oci_identity_compartment.environments
+#
+#    compartment_id = each.value.id
+#    description = "${each.value.name}'s compartment policy"
+#    name = each.key
+#    statements = [
+#        for s in local.applied_statement:
+#            format(s,oci_identity_group.environments[each.key].name,each.value.name)
+#    ]
+#  
+#}
 
 /*
 module "ebs_environments" {
