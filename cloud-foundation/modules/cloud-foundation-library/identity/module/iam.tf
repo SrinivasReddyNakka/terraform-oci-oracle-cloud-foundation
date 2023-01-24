@@ -38,7 +38,7 @@ resource "oci_identity_group" "iam" {
 }
 
 resource "oci_identity_policy" "iam" {
-  count          = var.create_identity_persona ? 1 : 0
+  count          = 0
   compartment_id = var.tenancy_ocid
   description    = "${oci_identity_group.iam[0].name}'s policy"
   name           = "iam"

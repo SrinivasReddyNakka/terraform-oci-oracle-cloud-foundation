@@ -120,7 +120,7 @@ resource "oci_identity_group" "application" {
 }
 
 resource "oci_identity_policy" "application" {
-    count = var.create_application_persona ? 1 : 0
+    count = 0
     compartment_id = oci_identity_compartment.application[0].id
     description = "Landing Zone ${oci_identity_group.application[0].name}'s compartment policy."
     name = local.application_name

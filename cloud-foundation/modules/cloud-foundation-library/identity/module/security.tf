@@ -62,7 +62,7 @@ resource "oci_identity_group" "security_service" {
 }
 
 resource "oci_identity_policy" "tenancy_security" {
-  count          = var.create_security_persona ? 1 : 0
+  count          =  0
   compartment_id = var.tenancy_ocid
   description    = "Landing Zone policy for ${oci_identity_group.security[0].name}'s group to manage security related services in tenancy"
   name           = "${local.security_name}-tenancy"
